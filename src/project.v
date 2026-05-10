@@ -19,13 +19,13 @@ module tt_um_petros (
   // All output pins must be assigned. If not used, assign to 0.
   assign uio_out      = 0;
   assign uo_out[7:5]  = 0;
-  assign uio_oe       = 8'b11110000;
+  assign uio_oe       = 0;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0, uio_in};
+  wire _unused = &{ena, clk, rst_n, 1'b0, uio_in, ui_in[7:2]};
 
-  TTNN_TOP ttnn (.clk(clk), .rst_l(rst_n),
-                 .in_byte(ui_in), .in_addr(uio_in[2:0]), .in_en(uio_in[3]),
+  TTNN_TOP ttnn (.clk(clk), .rst_l(rst_n), 
+                 .in_en(ui_in[0]), in_data(ui_in[1]),
                  .out_prediction(uo_out[3:0]), .out_ready(uo_out[4]));
 
 endmodule

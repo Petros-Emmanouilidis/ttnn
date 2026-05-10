@@ -8,9 +8,8 @@ parameter L1_OUT     = 10;
 module TTNN_TOP 
 (
     input  logic clk, rst_l,
-    input  logic [7:0] in_byte,
-    input  logic [2:0] in_addr,
     input  logic in_en,
+    input  logic in_data,
 
     output logic [3:0] out_prediction,
     output logic out_ready
@@ -21,19 +20,11 @@ module TTNN_TOP
     /////////////////
 
     // Internal latch for holding ingested image
-    logic [7:0][7:0]        image, image_next;
     logic [IMAGE_SIZE-1:0]  image_flat;
 
-    always_comb begin
-        image_next = image;
-        if (in_en) image_next[in_addr] = in_byte; 
-    end
-
-    assign image_flat = image;
-
     always_ff @(posedge clk) begin
-        if (~rst_l) image   <= '0;
-        else        image   <= image_next;
+        if (~rst_l) image_flat  <= '0;
+        else        image_flat  <= (in_en) ? ({image_flat[IMAGE_SIZE-2:0], in_data}) : (image_flat);
     end
 
 

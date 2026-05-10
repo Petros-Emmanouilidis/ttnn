@@ -25,7 +25,7 @@ module tt_um_petros (
   wire _unused = &{ena, clk, rst_n, 1'b0, uio_in, ui_in[7:2]};
 
   TTNN_TOP ttnn (.clk(clk), .rst_l(rst_n), 
-                 .in_en(ui_in[0]), in_data(ui_in[1]),
+                 .in_en(ui_in[0]), .in_data(ui_in[1]),
                  .out_prediction(uo_out[3:0]), .out_ready(uo_out[4]));
 
 endmodule

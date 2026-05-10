@@ -16,7 +16,7 @@ Network ingests a 64 bit image (8x8) and produces a 4-bit prediction (0 to 9 val
 
 ## How to test
 
-Use `in_en` and `in_data` to serially load in image data in row major order. When `in_en` is disabled, `out_ready` goes high and `out_prediction` will output the network's prediction for the latched image (network is combinational for minimal area).
+Use `in_en` and `in_data` to serially load in image data in row major order. When `in_en` is disabled, `out_ready` goes high and `out_prediction` will output the network's prediction for the latched image (network is combinational for minimal area). Reset (`rst_n`) is synchronous and active low.
 
 ## External hardware
 
